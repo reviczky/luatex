@@ -1722,7 +1722,7 @@ The \type{traverse_char} iterator loops over the \nod {glyph} nodes in a list.
 Only nodes with a subtype less than 256 are seen.
 
 \startfunctioncall
-<node> n, font, char =
+<node> n, char, font =
     node.traverse_char(<node> n)
 \stopfunctioncall
 
@@ -1730,7 +1730,7 @@ The \type{traverse_glyph} iterator loops over a list and returns the list and
 filters all glyphs:
 
 \startfunctioncall
-<node> n, font, char =
+<node> n, char, font =
     node.traverse_glyph(<node> n)
 \stopfunctioncall
 
