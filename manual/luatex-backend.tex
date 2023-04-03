@@ -619,12 +619,11 @@ pdfe.getstatus(<pdfe document>)
 
 The returned codes are:
 
-
 \starttabulate[|c|l|]
 \DB value       \BC explanation \NC \NR
 \TB
 \NC \type {-2}  \NC the document is (still) protected \NC \NR
-\NC \type {-1}  \NC the document failed to open \NC \NR 
+\NC \type {-1}  \NC the document failed to open \NC \NR
 \NC \type {0}   \NC the document is not encrypted \NC \NR
 \NC \type {1}   \NC the document has been unencrypted \NC \NR
 \LL
@@ -943,7 +942,7 @@ pdfscanner.scan (<pdfe array>, <table> operatortable, <table> info)
 pdfscanner.scan (<string>, <table> operatortable, <table> info)
 \stopfunctioncall
 
-The first argument should be a \LUA\ string or a stream or array onject coming
+The first argument should be a \LUA\ string or a stream or array object coming
 from the \type {pdfe} library. The second argument, \type {operatortable}, should
 be a \LUA\ table where the keys are \PDF\ operator name strings and the values
 are \LUA\ functions (defined by you) that are used to process those operators.
