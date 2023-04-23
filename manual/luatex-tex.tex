@@ -2854,6 +2854,21 @@ Returns the kpathsea version string.
 
 \stopsubsection
 
+\startsubsection[title={\type {check_permission}}]
+
+\libindex{check\_permission}
+
+Checks if the \type{filename} can be executed or not.
+Returns \type{1}, \type{filename} or a safe cmd alternative  if it can be executed,
+otherwise  returns \type{0} and an error message. 
+
+\startfunctioncall
+<string> res, cmd = kpse.check_permission(filename)
+\stopfunctioncall
+
+\stopsubsection
+
+
 \stopsection
 
 \stopchapter

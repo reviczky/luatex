@@ -1047,6 +1047,82 @@ static int os_execute(lua_State * L)
 }
 
 
+/*
+** ======================================================
+** l_kpse_popen spawns a new process connected to the current
+** one through the file streams with some checks by kpse.
+** Almost verbatim from Lua liolib.c .
+** =======================================================
+*/
+#if !defined(l_kpse_popen)           /* { */
+
+#if defined(LUA_USE_POSIX)      /* { */
+
+#define l_kpse_popen(L,c,m)          (fflush(NULL), popen(c,m))
+#define l_kpse_pclose(L,file)        (pclose(file))
+
+#elif defined(LUA_USE_WINDOWS)  /* }{ */
+
+#define l_kpse_popen(L,c,m)          (_popen(c,m))
+#define l_kpse_pclose(L,file)        (_pclose(file))
+
+#else                           /* }{ */
+
+/* ISO C definitions */
+#define l_kpse_popen(L,c,m)  \
+          ((void)((void)c, m), \
+          luaL_error(L, "'popen' not supported"), \
+          (FILE*)0)
+#define l_kpse_pclose(L,file)                ((void)L, (void)file, -1)
+
+#endif                          /* } */
+
+#endif                          /* } */
+typedef luaL_Stream LStream;
+#define tolstream(L)    ((LStream *)luaL_checkudata(L, 1, LUA_FILEHANDLE))
+static LStream *newprefile (lua_State *L) {
+  LStream *p = (LStream *)lua_newuserdata(L, sizeof(LStream));
+  p->closef = NULL;  /* mark file handle as 'closed' */
+  luaL_setmetatable(L, LUA_FILEHANDLE);
+  return p;
+}
+static int io_kpse_pclose (lua_State *L) {
+  LStream *p = tolstream(L);
+  return luaL_execresult(L, l_kpse_pclose(L, p->f));
+}
+static int io_kpse_popen (lua_State *L) {
+  const char *filename = NULL;
+  const char *mode = NULL;
+  LStream *p = NULL;
+  filename = luaL_checkstring(L, 1);
+  mode = luaL_optstring(L, 2, "r");
+  /* Check filename with kpse.check_permission . */
+  lua_getglobal(L,"kpse");
+  lua_getfield(L, -1, "check_permission");
+  lua_pushstring(L,filename);
+  if (lua_pcall(L,1,2,0)!=LUA_OK){
+    return 1 ;
+  } else {
+    filename = luaL_checkstring(L, -1);
+    int okay = lua_toboolean(L,-2);
+    if (okay && filename) {
+      p = newprefile(L);
+      luaL_argcheck(L, ((mode[0] == 'r' || mode[0] == 'w') && mode[1] == '\0'),
+                   2, "invalid mode");
+      p->f = l_kpse_popen(L, filename, mode);
+      p->closef = &io_kpse_pclose;
+      return (p->f == NULL) ? luaL_fileresult(L, 0, filename) : 1;
+   } else {
+      lua_pushnil(L);
+      lua_pushvalue(L,-2);
+      return 2;
+   }
+  }
+}
+
+
+
+
 void open_oslibext(lua_State * L)
 {
 
@@ -1080,6 +1156,8 @@ void open_oslibext(lua_State * L)
     lua_setfield(L, -2, "execute");
     lua_pushcfunction(L, os_tmpdir);
     lua_setfield(L, -2, "tmpdir");
+    lua_pushcfunction(L, io_kpse_popen);
+    lua_setfield(L, -2, "kpsepopen");
 
     lua_pop(L, 1);              /* pop the table */
 }
