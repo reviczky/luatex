@@ -436,9 +436,13 @@ used as building blocks for other helpers.
 The \type {os} library has a few extra functions and
 variables: \libidx {os} {selfdir}, \libidx {os} {exec}, \libidx {os}
 {kpsepopen}, \libidx {os} {spawn}, \libidx {os} {setenv},
-\libidx {os} {env}, \libidx {os} {gettimeofday}, \libidx {os} {times}, \libidx
-{os} {tmpdir}, \libidx {os} {type}, \libidx {os} {name} and \libidx
-{os} {uname}, that we will discuss here.
+\libidx {os} {env}, \libidx {os} {gettimeofday}, \libidx {os} {times},
+\libidx {os} {sleep}, \libidx {os} {tmpdir}, \libidx {os} {type},
+\libidx {os} {name} and \libidx {os} {uname},{os} {uname},
+that we will discuss here.
+
+
+
 
 \startitemize
 
@@ -532,19 +536,29 @@ variables: \libidx {os} {selfdir}, \libidx {os} {exec}, \libidx {os}
 \stopitem
 
 \startitem
-    \type {os.times()}returns the current process times according to \ the
+    \type {os.times()}returns the current process times according to the
     \UNIX\ C library function \quote {times}. This function is not available on
     the \MSWINDOWS\ and \SUNOS\ platforms, so do not use this function for
     portable documents.
 \stopitem
 
 \startitem
-    \type {os.tmpdir()} creates a directory in the \quote {current directory}
+    \type {os.sleep(interval[, unit])} suspends the execution of the current run for
+    a given number of seconds. If the optional argument \type {unit} is present, the
+    function waits \type {interval / units} seconds. \type {os.sleep(1, 1000)}
+    for example pauses the program for one millisecond.
+\stopitem
+
+\startitem
+    \type {os.tmpdir([template])} creates a directory in the \quote {current directory}
     with the name \type {luatex.XXXXXX} where the \type {X}-es are replaced by a
     unique string. The function also returns this string, so you can \type
     {lfs.chdir()} into it, or \type {nil} if it failed to create the directory.
     The user is responsible for cleaning up at the end of the run, it does not
-    happen automatically.
+    happen automatically. You can also use your own \type {template} for the name
+    of the temporary folder. However, the passed string must end with six capital
+    \type {X}-es. For example, the template \type {tmp.XXXXXX} could result in the
+    folder name \type {tmp.vX3gPo}.
 \stopitem
 
 \startitem
