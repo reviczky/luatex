@@ -1090,33 +1090,65 @@ static int io_kpse_pclose (lua_State *L) {
   LStream *p = tolstream(L);
   return luaL_execresult(L, l_kpse_pclose(L, p->f));
 }
+static int io_kpse_check_permissions(lua_State *L) {
+    const char *filename = luaL_checkstring(L, 1);
+    if (filename == NULL) {
+        lua_pushboolean(L,0);
+        lua_pushliteral(L,"no command name given");
+    } else if (shellenabledp <= 0) {
+        lua_pushboolean(L,0);
+        lua_pushliteral(L,"all command execution is disabled");
+    } else if (restrictedshell == 0) {
+        lua_pushboolean(L,1);
+        lua_pushstring(L,filename);
+    } else {
+        char *safecmd = NULL;
+        char *cmdname = NULL;
+        switch (shell_cmd_is_allowed(filename, &safecmd, &cmdname)) {
+            case 0:
+                lua_pushboolean(L,0);
+                lua_pushliteral(L, "specific command execution disabled");
+                break;
+            case 1:
+                /* doesn't happen */
+                lua_pushboolean(L,1);
+                lua_pushstring(L,filename);
+                break;
+            case 2:
+                lua_pushboolean(L,1);
+                lua_pushstring(L,safecmd);
+                break;
+            default:
+                /* -1 */
+                lua_pushboolean(L,0);
+                lua_pushliteral(L, "bad command line quoting");
+                break;
+        }
+    }
+    return 2;
+}
 static int io_kpse_popen (lua_State *L) {
   const char *filename = NULL;
   const char *mode = NULL;
   LStream *p = NULL;
+  int okay;
   filename = luaL_checkstring(L, 1);
   mode = luaL_optstring(L, 2, "r");
-  /* Check filename with kpse.check_permission . */
-  lua_getglobal(L,"kpse");
-  lua_getfield(L, -1, "check_permission");
   lua_pushstring(L,filename);
-  if (lua_pcall(L,1,2,0)!=LUA_OK){
-    return 1 ;
+  io_kpse_check_permissions(L);
+  filename = luaL_checkstring(L, -1);
+  okay = lua_toboolean(L,-2);
+  if (okay && filename) {
+    p = newprefile(L);
+    luaL_argcheck(L, ((mode[0] == 'r' || mode[0] == 'w') && mode[1] == '\0'),
+		  2, "invalid mode");
+    p->f = l_kpse_popen(L, filename, mode);
+    p->closef = &io_kpse_pclose;
+    return (p->f == NULL) ? luaL_fileresult(L, 0, filename) : 1;
   } else {
-    filename = luaL_checkstring(L, -1);
-    int okay = lua_toboolean(L,-2);
-    if (okay && filename) {
-      p = newprefile(L);
-      luaL_argcheck(L, ((mode[0] == 'r' || mode[0] == 'w') && mode[1] == '\0'),
-                   2, "invalid mode");
-      p->f = l_kpse_popen(L, filename, mode);
-      p->closef = &io_kpse_pclose;
-      return (p->f == NULL) ? luaL_fileresult(L, 0, filename) : 1;
-   } else {
-      lua_pushnil(L);
-      lua_pushvalue(L,-2);
-      return 2;
-   }
+    lua_pushnil(L);
+    lua_pushvalue(L,-2);
+    return 2;
   }
 }
 

@@ -503,10 +503,9 @@ that we will discuss here.
 
 \startitem
     \type {os.kpsepopen(commandline,[opt])} is similar to \type {io.popen}
-    but with a preliminary check of the  command  by mean of \type{kpse.check_permission}.
-    
-    If the command ran ok, then the return value is the same of \type{io.popen};
-    otherwise it will return the two values \type {nil} and \type {error}.
+    but with a preliminary check of the  commandline;
+    if the check is ok then the return value is the same as in \type{io.popen};
+    Otherwise it will return the two values \type {nil} and \type {error}.
 \stopitem
 
 \startitem
