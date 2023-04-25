@@ -212,7 +212,7 @@ char *jithash_hashname = NULL;
 #endif
 
 int safer_option = 0;
-int nosocket_option = 0;
+int nosocket_option = 1; 
 int utc_option = 0;
 
 /*tex
@@ -524,14 +524,21 @@ static void parse_options(int ac, char **av)
                 input_name = xstrdup(sargv[sargc-1]);
             sargv[sargc-1] = normalize_quotes(input_name, "argument");
         }
-        if (safer_option)      /* --safer implies --nosocket */
-            nosocket_option = 1;
+        /* --safer implies --nosocket */
+        if (safer_option) {
+	    nosocket_option = 1;
+	} else if (shellenabledp == 1 && restrictedshell == 0) {
+            nosocket_option = 0;
+	}
         return;
 #endif
     }
     /*tex |--safer| implies |--nosocket| */
-    if (safer_option)
-        nosocket_option = 1;
+    if (safer_option) {
+       nosocket_option = 1;
+    } else if (shellenabledp==1 && restrictedshell==0) {
+       nosocket_option = 0;
+    }
     /*tex Finalize the input filename. */
     if (input_name != NULL) {
         argv[optind] = normalize_quotes(input_name, "argument");
@@ -981,6 +988,7 @@ void lua_initialize(int ac, char **av)
         shellenabledp = true;
         restrictedshell = false;
         safer_option = 0;
+	nosocket_option = 0;
     }
     /*tex
         Get the current locale (it should be |C|) and save |LC_CTYPE|, |LC_COLLATE|

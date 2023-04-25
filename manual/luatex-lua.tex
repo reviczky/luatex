@@ -195,12 +195,14 @@ in the following order:
     \stoptyping
 
     The \type {--nosocket} option makes the socket library unavailable, so that \LUA\
-    cannot use networking.
+    cannot use networking. 
 
     The switches \type {--[no-]shell-escape}, \type {--[enable|disable]-write18}, and
     \type {--shell-restricted} have the same effects as in \PDFTEX, and additionally
     make \type {io.popen()}, \type {os.execute}, \type {os.exec}, \type {os.kpsepopen}
-    and \type {os.spawn} adhere to the requested option.
+    and \type {os.spawn} adhere to the requested option. Also, by default
+    the socket library is not enabled: one can enable it with  \type {--shell-escape}
+    without  \type {--shell-restricted}.
 \stopitem
 
 \startitem
@@ -434,8 +436,10 @@ used as building blocks for other helpers.
 \startsubsection[title={Extra \type {os} library functions}]
 
 The \type {os} library has a few extra functions and
-variables: \libidx {os} {selfdir}, \libidx {os} {exec}, \libidx {os}
-{kpsepopen}, \libidx {os} {spawn}, \libidx {os} {setenv},
+variables: \libidx {os} {selfdir}, \libidx {os} {exec},
+\libidx {os} {kpsepopen},
+\libidx {os} {socketgettime}, \libidx {os} {socketsleep},
+\libidx {os} {spawn}, \libidx {os} {setenv},
 \libidx {os} {env}, \libidx {os} {gettimeofday}, \libidx {os} {times},
 \libidx {os} {sleep}, \libidx {os} {tmpdir}, \libidx {os} {type},
 \libidx {os} {name} and \libidx {os} {uname},{os} {uname},
@@ -506,6 +510,11 @@ that we will discuss here.
     but with a preliminary check of the  commandline;
     if the check is ok then the return value is the same as in \type{io.popen};
     Otherwise it will return the two values \type {nil} and \type {error}.
+\stopitem
+
+\startitem
+    \type {os.socketgettime} and \type {os.socketsleep} are the same as for
+    \type{socket.gettime} and \type{socket.sleep} but they are always available.
 \stopitem
 
 \startitem
