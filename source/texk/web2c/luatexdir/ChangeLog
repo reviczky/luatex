@@ -1,10 +1,14 @@
+2023-04-27  Luigi Scarso <luigi.scarso@gmail.com> 
+    * new option --socket to split socket and shell escape;
+    * Fixed ChangeLog
+
 2023-04-25  Luigi Scarso <luigi.scarso@gmail.com> 
     * socket library by default not enabled; 
        it is enabled with --shell-escape but not with --shell-restricted.
        The option ---nosocket remains unchanged.
        The two new functions os.socketgettime and os.socketsleep are 
        like socket.gettime and socket.sleep, but they are always available.
-    * Luatex 1.17.2
+    * Luatex 1.17.0
 
 2023-04-24  Luigi Scarso <luigi.scarso@gmail.com> 
     * static kpse.check_permissions in os.kpsepopen

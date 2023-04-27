@@ -88,6 +88,7 @@ consequence. The following command|-|line options are understood:
 \NC \type{--[no-]mktex=FMT}             \NC disable/enable \type {mktexFMT} generation with \type {FMT} is
                                             \type {tex} or \type {tfm} \NC \NR
 \NC \type{--nosocket}                   \NC disable the \LUA\ socket library \NC\NR
+\NC \type{--socket}                     \NC enable the \LUA\ socket library \NC\NR
 \NC \type{--output-comment=STRING}      \NC use \type {STRING} for \DVI\ file comment instead of date (no
                                             effect for \PDF) \NC \NR
 \NC \type{--output-directory=DIR}       \NC use \type {DIR} as the directory to write files to \NC \NR
@@ -147,7 +148,7 @@ in the following order:
 \startitem
     First, it will parse the command line as usual, but it will only interpret a
     small subset of the options immediately: \type {--safer}, \type {--nosocket},
-    \type {--[no-]shell-escape}, \type {--enable-write18}, \type
+    \type {--socket}, \type {--[no-]shell-escape}, \type {--enable-write18}, \type
     {--disable-write18}, \type {--shell-restricted}, \type {--help}, \type
     {--version}, and \type {--credits}.
 \stopitem
@@ -182,6 +183,8 @@ in the following order:
 
     Furthermore, it disables loading of compiled \LUA\ libraries and it makes
     \type {io.open()} fail on files that are opened for anything besides reading.
+
+    Finally, it disables the socket library unconditionally.
 \stopitem
 
 \startitem
@@ -195,14 +198,20 @@ in the following order:
     \stoptyping
 
     The \type {--nosocket} option makes the socket library unavailable, so that \LUA\
-    cannot use networking. 
+    cannot use networking;  
+    \type {--socket} option makes the socket library available.
 
     The switches \type {--[no-]shell-escape}, \type {--[enable|disable]-write18}, and
     \type {--shell-restricted} have the same effects as in \PDFTEX, and additionally
     make \type {io.popen()}, \type {os.execute}, \type {os.exec}, \type {os.kpsepopen}
-    and \type {os.spawn} adhere to the requested option. Also, by default
-    the socket library is not enabled: one can enable it with  \type {--shell-escape}
-    without  \type {--shell-restricted}.
+    and \type {os.spawn} adhere to the requested option.
+
+    By default
+    the socket library is not enabled: one can enable it with with \type {--socket}
+     or with \type {--shell-escape}  (but without  \type {--shell-restricted})
+    and disable it with \type {--nosocket} or unconditionally with \type {--safer}.
+
+    In case of conflictual options, the most restrictive wins.
 \stopitem
 
 \startitem
