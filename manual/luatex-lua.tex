@@ -184,7 +184,8 @@ in the following order:
     Furthermore, it disables loading of compiled \LUA\ libraries and it makes
     \type {io.open()} fail on files that are opened for anything besides reading.
 
-    Finally, it disables the socket library unconditionally.
+    Finally, it disables the \type {socket} library unconditionally (but not the
+    \type {mime} library which is always available).
 \stopitem
 
 \startitem
@@ -212,6 +213,9 @@ in the following order:
     and disable it with \type {--nosocket} or unconditionally with \type {--safer}.
 
     In case of conflictual options, the most restrictive wins.
+
+    The \type{mime} library is always available.
+
 \stopitem
 
 \startitem

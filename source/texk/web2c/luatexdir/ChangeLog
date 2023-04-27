@@ -1,5 +1,6 @@
 2023-04-27  Luigi Scarso <luigi.scarso@gmail.com> 
     * new option --socket to split socket and shell escape;
+    * the mime library is always available (Max Chernoff)
     * Fixed ChangeLog
 
 2023-04-25  Luigi Scarso <luigi.scarso@gmail.com> 

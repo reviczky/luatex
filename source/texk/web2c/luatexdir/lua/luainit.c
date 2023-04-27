@@ -223,7 +223,7 @@ int utc_option = 0;
   otherwise the socket library is enabled. Default value is |0000|, i.e. |--nosocket|.
 */
 #define UPDATE_SOCKET_STATUS() do {                                                              \
- socket_bitmask = 0;                                                                             \   
+ socket_bitmask = 0;                                                                             \
  socket_bitmask = safer_option==1?                             (8+socket_bitmask):socket_bitmask;\
  socket_bitmask = nosocket_cli_option==1?                      (4+socket_bitmask):socket_bitmask;\
  socket_bitmask = (shellenabledp == 1 && restrictedshell == 0)?(2+socket_bitmask):socket_bitmask;\
@@ -234,7 +234,7 @@ int utc_option = 0;
    nosocket_option = 0;                                                                          \
  } else {                                                                                        \
    nosocket_option = 1;                                                                          \
- }                                                                                               \   
+ }                                                                                               \
 } while (0)
 
 /*tex
