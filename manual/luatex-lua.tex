@@ -88,6 +88,7 @@ consequence. The following command|-|line options are understood:
 \NC \type{--[no-]mktex=FMT}             \NC disable/enable \type {mktexFMT} generation with \type {FMT} is
                                             \type {tex} or \type {tfm} \NC \NR
 \NC \type{--nosocket}                   \NC disable the \LUA\ socket library \NC\NR
+\NC \type{--no-socket}                  \NC disable the \LUA\ socket library \NC\NR
 \NC \type{--socket}                     \NC enable the \LUA\ socket library \NC\NR
 \NC \type{--output-comment=STRING}      \NC use \type {STRING} for \DVI\ file comment instead of date (no
                                             effect for \PDF) \NC \NR
@@ -148,6 +149,7 @@ in the following order:
 \startitem
     First, it will parse the command line as usual, but it will only interpret a
     small subset of the options immediately: \type {--safer}, \type {--nosocket},
+    \type {--no-socket},
     \type {--socket}, \type {--[no-]shell-escape}, \type {--enable-write18}, \type
     {--disable-write18}, \type {--shell-restricted}, \type {--help}, \type
     {--version}, and \type {--credits}.
@@ -198,8 +200,8 @@ in the following order:
     os.setlocale(nil,nil)
     \stoptyping
 
-    The \type {--nosocket} option makes the socket library unavailable, so that \LUA\
-    cannot use networking;  
+    The \type {--nosocket} or \type {--no-socket} option makes the socket library
+    unavailable, so that \LUA\ cannot use networking;  
     \type {--socket} option makes the socket library available.
 
     The switches \type {--[no-]shell-escape}, \type {--[enable|disable]-write18}, and
@@ -210,7 +212,8 @@ in the following order:
     By default
     the socket library is not enabled: one can enable it with with \type {--socket}
      or with \type {--shell-escape}  (but without  \type {--shell-restricted})
-    and disable it with \type {--nosocket} or unconditionally with \type {--safer}.
+     and disable it with \type {--nosocket} (or \type {--no-socket})
+     or unconditionally with \type {--safer}.
 
     In case of conflictual options, the most restrictive wins.
 
