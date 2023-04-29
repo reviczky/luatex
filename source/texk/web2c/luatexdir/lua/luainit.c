@@ -110,6 +110,7 @@ const_string LUATEX_IHELP[] = {
 #endif
     "",
     "See the reference manual for more information about the startup process.",
+    "LuaTeX package page: https://ctan.org/pkg/luatex",
     NULL
 };
 
