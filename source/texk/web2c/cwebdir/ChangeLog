@@ -1,3 +1,172 @@
+2023-08-13  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-w2c.h,
+	* common.c,
+	* common.h,
+	* ctangle.c: Move 'print_stats' prototype in common.h.
+	* ctwill-w2c.ch
+	* cweave.w: Insert blank line after '\ch'.
+
+2023-08-11  Andreas Scherer  <https://ascherer.github.io>
+
+	* ctwill-mini.ch,
+	* ctwill-w2c.ch,
+	* cweav-w2c.ch,
+	* cweave.w: Refurbish 'phase_three'.
+
+2023-08-08  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-w2c.ch,
+	* comm-w2c.h,
+	* common.h,
+	* ctang-w2c.ch,
+	* ctangle.w,
+	* ctwill-hint.ch,
+	* ctwill-mini.ch,
+	* ctwill-w2c.ch,
+	* cweav-w2c.ch,
+	* cweave.w: Mark a few 'system dependencies' for the index.
+
+2023-08-07  Andreas Scherer  <https://ascherer.github.io>
+
+	* common.c,
+	* common.w,
+	* ctang-w2c.ch,
+	* ctangle.c,
+	* ctangle.w: Code cleanup.
+
+2023-08-06  Andreas Scherer  <https://ascherer.github.io>
+
+	* ctwill-hint.ch,
+	* ctwill-mini.ch,
+	* ctwill-w2c.ch,
+	* cweav-w2c.ch,
+	* cweave.w: Hide 'print_text' analytics.
+
+2023-08-04  Andreas Scherer  <https://ascherer.github.io>
+
+	* common.bux,
+	* ctwill-hint.ch,
+	* ctwill-mini.ch,
+	* ctwill-w2c.ch,
+	* cweav-bs.ch,
+	* cweav-pc.ch,
+	* cweav-vms.ch,
+	* cweav-w2c.ch,
+	* cweav-w32.ch,
+	* cweave.w: Desove section with internal array sizes.
+
+2023-08-02  Andreas Scherer  <https://ascherer.github.io>
+
+	* ctang-bs.ch,
+	* ctangle.c,
+	* ctangle.w,
+	* ctwill-w2c.ch,
+	* cweave.w,
+	* system.bux: Replace 'sprintf' with 'snprintf'.
+
+2023-08-01  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-w2c.ch,
+	* common.c,
+	* common.w: Squeeze section 51 to preserve page count.
+
+2023-07-29  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-bs.ch,
+	* comm-w2c.h,
+	* common.c,
+	* common.h,
+	* common.w,
+	* ctang-bs.ch,
+	* ctang-w2c.ch,
+	* ctangle.c,
+	* ctangle.w,
+	* ctwill-w2c.ch,
+	* cweav-bs.ch,
+	* cweav-w2c.ch,
+	* cweave.w: Syntactic sugar.
+
+2023-07-28  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-w2c.h,
+	* common.c,
+	* common.h,
+	* ctangle.c: Ilk is of type eight_bits.
+
+2023-07-28  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-mini.ch,
+	* comm-w2c.ch,
+	* common.bux,
+	* common.c,
+	* common.w,
+	* ctangle.c,
+	* ctangle.w,
+	* system.bux: Format 'common' with 'ctwill'.
+
+2023-07-26  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-bs.ch,
+	* comm-w2c.ch,
+	* comm-w2c.h,
+	* comm-w32.ch,
+	* common.bux,
+	* common.c,
+	* common.h,
+	* common.w,
+	* ctang-w32.ch,
+	* ctangle.c,
+	* ctangle.w,
+	* ctwill-mini.ch,
+	* ctwill-w2c.ch,
+	* cweav-w32.ch,
+	* cweave.w: Purge 'init_p'.
+
+2023-07-21  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-{mac,mini,vms,w2c}.ch,
+	* comm-w2c.h,
+	* common.bux,
+	* common.{c,h,w},
+	* ctangle.{c,w},
+	* ctwill-mini.ch,
+	* ctwill.bux: Match common.w with common.h.
+
+2023-07-18  Andreas Scherer  <https://ascherer.github.io>
+
+	* cwebdir/comm-mac.ch,
+	* cwebdir/comm-w2c.ch,
+	* cwebdir/common.c,
+	* cwebdir/common.w: Discard rest of overfull input line.
+
+2023-07-17  Andreas Scherer  <https://ascherer.github.io>
+
+	* cweave.w: Deal with malign user input.
+
+2023-07-16  Andreas Scherer  <https://ascherer.github.io>
+
+	* ctwill-mini.ch,
+	* cweave.w: 'pop_level' is a macro (again).
+
+2023-07-14  Andreas Scherer  <https://ascherer.github.io>
+
+	* ctwill.bux,
+	* cweave.w: Finally make use of type 'mode' -- C-style.
+
+2023-07-13  Andreas Scherer  <https://ascherer.github.io>
+
+	* ctang-{bs,w2c}.ch,
+	* ctangle.c,
+	+ ctangle.w,
+	* cweave.w: Merge 'cur_state' into 'stack'.
+
+2023-07-09  Andreas Scherer  <https://ascherer.github.io>
+
+	* comm-ql.ch,
+	* common.c,
+	* common.w: Don't create index/section file names.
+
 2023-07-08  Andreas Scherer  <https://ascherer.github.io>
 
 	* ctwill-w2c.ch,
